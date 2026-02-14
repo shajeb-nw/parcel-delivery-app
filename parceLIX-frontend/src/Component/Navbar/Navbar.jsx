@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Logo from "../../Utils/Logo";
 
 const Navbar = () => {
@@ -21,9 +22,9 @@ const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <button className="background-color text-white px-6 py-3 rounded-full font-semibold">
-              Send Parcel
-            </button>
+            <Link to={"/signin"}  className="background-color text-white px-6 py-2 rounded-full font-semibold">
+              Login
+            </Link>
           </div>
         </div>
       </div>
