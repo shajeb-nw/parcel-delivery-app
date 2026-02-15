@@ -1,13 +1,47 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import deliveryImg from "../../assets/authImage.png";
 import Logo from "../../Utils/Logo";
 import { Link } from "react-router";
 import ImageUpload from "../../Utils/ImageUpload ";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Hooks/useContext/FormContext/AuthContext";
+import { toast } from "react-toastify";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../Fairbase/Fairbase";
+
 const SignUp = () => {
+  const [images, setImages] = useState("");
+  const { signupUser } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+   
+  const onSubmit = async (data) => {
+    const { email, password, name } = data;
+    const userInfo = {
+      displayName: name,
+      photoURL: images,
+    };
+    try {
+      if (!images) {
+        toast.error("Profile image required");
+        return;
+      }
+      await signupUser(email, password);
+      await updateProfile(auth.currentUser, userInfo);
+      toast.success("register successful!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <section className="min-h-screen flex">
       {/* LEFT SIDE */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100 px-6">
+      <div className="w-full md:w-1/2  flex items-center justify-center bg-gray-100 px-6 py-2">
         <div className="w-full max-w-md">
           {/* Logo */}
           <Link to={"/"} className="">
@@ -18,9 +52,8 @@ const SignUp = () => {
           <h1 className="text-3xl font-bold mb-2 mt-5">Create a Account</h1>
 
           {/* Form */}
-          <form className="space-y-4">
-
-            <ImageUpload></ImageUpload>
+          <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+            <ImageUpload setImages={setImages}></ImageUpload>
 
             {/* {name} */}
             <div>
@@ -28,7 +61,9 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="Name"
-                className="w-full px-4 py-2 border  rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                required
+                className="w-full  px-4 py-2 border  rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                {...register("name", { required: true })}
               />
             </div>
             {/* Email */}
@@ -37,7 +72,9 @@ const SignUp = () => {
               <input
                 type="email"
                 placeholder="Email"
+                required
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                {...register("email", { required: true })}
               />
             </div>
 
@@ -47,20 +84,21 @@ const SignUp = () => {
               <input
                 type="password"
                 placeholder="Password"
+                required
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                {...register("password", { required: true })}
               />
             </div>
 
-
             {/* Login Button */}
-            <button className="w-full background-color w- text-white font-medium py-2 rounded-md transition">
+            <button className="w-full cursor-pointer background-color w- text-white font-medium py-2 rounded-md transition">
               Register
             </button>
 
             {/* Register */}
             <p className="text-center text-sm text-gray-600">
               Don’t have any account?{" "}
-              <Link to={"/signin"} className="text-lime-500 font-medium">
+              <Link to={"/signin"} className="text-color font-bold">
                 Login
               </Link>
             </p>

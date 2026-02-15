@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import deliveryImg from "../../assets/authImage.png";
 import Logo from "../../Utils/Logo";
 import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Hooks/useContext/FormContext/AuthContext";
+import { toast } from "react-toastify";
 const Signin = () => {
+   const {signinUser}=useContext(AuthContext)
+    const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm()
+    const onSubmit = async(data) =>{
+      const {email,password}=data
+      try {
+        await signinUser(email,password);
+        toast.success("login successful!")
+      } catch (error) {
+         toast.error(error.message)
+      }
+    }
   return (
     <section className="min-h-screen flex">
       {/* LEFT SIDE */}
@@ -18,14 +37,16 @@ const Signin = () => {
 
 
           {/* Form */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
             <div>
               <label className="block text-sm mb-1">Email</label>
               <input
                 type="email"
                 placeholder="Email"
+                required
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                {...register('email',{required:true})}
               />
             </div>
 
@@ -35,7 +56,9 @@ const Signin = () => {
               <input
                 type="password"
                 placeholder="Password"
+                required
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-400"
+                {...register('password',{required:true})}
               />
             </div>
 

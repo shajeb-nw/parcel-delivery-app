@@ -1,7 +1,13 @@
 import { Link } from "react-router";
 import Logo from "../../Utils/Logo";
+import { useContext } from "react";
+import { AuthContext } from "../../Hooks/useContext/FormContext/AuthContext";
+import Avator from "../../Utils/Avator";
+import { BeatLoader } from "react-spinners";
 
 const Navbar = () => {
+  const { users, loading } = useContext(AuthContext);
+
   return (
     <nav className="w-full bg-white border-b border-black/10">
       <div className="max-w-7xl mx-auto px-6">
@@ -22,9 +28,18 @@ const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <Link to={"/signin"}  className="background-color text-white px-6 py-2 rounded-full font-semibold">
-              Login
-            </Link>
+            {loading ? (
+              <BeatLoader size={10} color="#AB47BC"/>
+            ) : users ? (
+              <Avator></Avator>
+            ) : (
+              <Link
+                to={"/signin"}
+                className="background-color text-white px-6 py-2 rounded-full font-semibold"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

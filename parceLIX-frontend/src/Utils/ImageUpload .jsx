@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { CircleUser, Upload } from "lucide-react";
+import axios from "axios";
 
-const ImageUpload = () => {
+const ImageUpload = ({setImages}) => {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -9,10 +10,22 @@ const ImageUpload = () => {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async(e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
+     setPreview(URL.createObjectURL(file));
+    }
+    if(!file) return;
+    const formdata=new FormData()
+    formdata.append('file',file)
+    formdata.append('upload_preset',"parcel-delivery-users")
+
+    try {
+      let img=await axios.post("https://api.cloudinary.com/v1_1/dmwlysue6/image/upload",formdata)
+       setImages(img?.data?.url)
+      
+     } catch (error) {
+       console.log(error);
     }
   };
 
