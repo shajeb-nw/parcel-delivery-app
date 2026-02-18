@@ -6,13 +6,21 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Hooks/useContext/FormContext/AuthContext";
 import { toast } from "react-toastify";
 const Signin = () => {
-   const {signinUser}=useContext(AuthContext)
+   const {signinUser,googleSignin}=useContext(AuthContext)
     const {
       register,
       handleSubmit,
       watch,
       formState: { errors },
     } = useForm()
+       const handelclick= async()=>{
+         try {
+           await googleSignin()
+           toast.success("google signin successful!")
+         } catch (error) {
+           toast.error(error.message)
+         }
+       }
     const onSubmit = async(data) =>{
       const {email,password}=data
       try {
@@ -88,6 +96,7 @@ const Signin = () => {
             {/* Google Button */}
             <button
               type="button"
+              onClick={handelclick}
               className="w-full flex items-center justify-center gap-2 border py-2 rounded-md hover:bg-gray-200 transition"
             >
               <img

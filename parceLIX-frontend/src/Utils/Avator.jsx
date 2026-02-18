@@ -19,7 +19,7 @@ const Avator = () => {
       <div
         tabIndex={0}
         role="button"
-        className="w-12 h-12 rounded-full  flex items-center justify-center"
+        className="w-12 h-12 rounded-full  flex items-center justify-center cursor-pointer"
       >
         <img src={users?.photoURL} alt="user image" className="w-full h-full object-cover rounded-full"/>
       </div>

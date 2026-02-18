@@ -11,7 +11,7 @@ import { auth } from "../../Fairbase/Fairbase";
 
 const SignUp = () => {
   const [images, setImages] = useState("");
-  const { signupUser } = useContext(AuthContext);
+  const { signupUser,googleSignin } = useContext(AuthContext);
 
   const {
     register,
@@ -19,7 +19,14 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
-   
+   const handelclick= async()=>{
+     try {
+       await googleSignin()
+       toast.success("google signin successful!")
+     } catch (error) {
+       toast.error(error.message)
+     }
+   }
   const onSubmit = async (data) => {
     const { email, password, name } = data;
     const userInfo = {
@@ -108,6 +115,7 @@ const SignUp = () => {
 
             {/* Google Button */}
             <button
+            onClick={handelclick}
               type="button"
               className="w-full flex items-center justify-center gap-2 border py-2 rounded-md hover:bg-gray-200 transition"
             >
