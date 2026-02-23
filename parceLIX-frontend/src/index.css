@@ -12,10 +12,10 @@ body {
 }
 @layer utilities {
   .background-color {
-    background: linear-gradient(135deg, #AB47BC, #4DD0E1);
+    background: linear-gradient(135deg, #ab47bc, #4dd0e1);
   }
   .text-color {
-    background: linear-gradient(135deg, #AB47BC, #4DD0E1);
+    background: linear-gradient(135deg, #ab47bc, #4dd0e1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

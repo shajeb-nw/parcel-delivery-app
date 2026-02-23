@@ -7,9 +7,8 @@ import axios from "axios";
 const Converage = () => {
   const [data, setData] = useState([]);
   const [handleChane, SetHandleChange] = useState("");
-  const mapRef=useRef(null)
-  
-  
+  const mapRef = useRef(null);
+
   useEffect(() => {
     axios("/warehouses.json").then((res) => {
       setData(res?.data);
@@ -19,13 +18,12 @@ const Converage = () => {
     if (handleChane === "" || handleChane.trim().length === 0) {
       return;
     } else {
-      let district = data.find((res) => (
-        res.district.toLowerCase().includes(handleChane.toLowerCase())
-      ));
-      if(district){
-        let flyto=[district.latitude,district.longitude]
-        mapRef.current.flyTo(flyto,11)
-        
+      let district = data.find((res) =>
+        res.district.toLowerCase().includes(handleChane.toLowerCase()),
+      );
+      if (district) {
+        let flyto = [district.latitude, district.longitude];
+        mapRef.current.flyTo(flyto, 11);
       }
     }
   };

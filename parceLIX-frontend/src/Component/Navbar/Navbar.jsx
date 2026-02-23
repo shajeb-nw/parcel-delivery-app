@@ -20,10 +20,7 @@ const Navbar = () => {
           {/* Menu */}
           <ul className="max-[875px]:hidden flex items-center justify-center gap-8 text-gray-600 font-medium">
             <Link className="hover:text-black cursor-pointer">Home</Link>
-            <li className="hover:text-black cursor-pointer">Services</li>
             <Link to={"coverage"} className="hover:text-black cursor-pointer">Coverage</Link>
-            <li className="hover:text-black cursor-pointer">About Us</li>
-            <li className="hover:text-black cursor-pointer">Pricing</li>
             <Link to={"/bearider"} className="hover:text-black cursor-pointer">Be a Rider</Link>
             <Link to={"/parcelsend"} className="hover:text-black cursor-pointer">Send Parcel</Link>
           </ul>
