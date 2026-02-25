@@ -1,35 +1,43 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useState } from "react";
 import Container from "../../Component/Container/Container";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../../Hooks/AxiousBackendLInk/useAxious";
+import { AuthContext } from "../../Hooks/useContext/FormContext/AuthContext";
 
 const ParcelSend = () => {
   const [data, setData] = useState([]);
-  const [myRegion, setMyRegion] = useState([]);
+  // const [myRegion, setMyRegion] = useState([]);
+  const axiosInstance = useAxios();
+  const {users}=use(AuthContext)
+
+  
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const senderRegion = watch("senderRegion");
   const reciverRegion = watch("receiverRegion");
   const onSubmit = (data) => {
     const {
       documentType,
-      parcelName,
+      // parcelName,
       parcelWeight,
-      senderName,
-      senderAddress,
-      senderPhone,
-      senderRegion,
+      // senderName,
+      // senderAddress,
+      // senderEmail,
+      // senderPhone,
+      // senderRegion,
       senderDistrict,
-      reciverName,
-      reciverAddress,
-      reciverPhone,
-      receiverRegion,
+      // reciverName,
+      // reciverEmail,
+      // reciverAddress,
+      // reciverPhone,
+      // receiverRegion,
       reciverDistrict,
     } = data;
 
@@ -50,8 +58,7 @@ const ParcelSend = () => {
         cost = isSmaeDistrict ? 110 : 150;
       }
     }
-    console.log(cost);
-    
+
     Swal.fire({
       title: "Are you agree the cost?",
       text: `you will be charge ${cost} !`,
@@ -62,11 +69,9 @@ const ParcelSend = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Swal.fire({
-        //   title: "Deleted!",
-        //   text: "Your file has been deleted.",
-        //   icon: "success",
-        // });
+        axiosInstance.post("/user", data).then((res) => {
+          console.log(res);
+        });
       }
     });
   };
@@ -164,10 +169,20 @@ const ParcelSend = () => {
                 <input
                   type="text"
                   placeholder="Sender Name"
+                  defaultValue={users?.displayName}
                   required
                   className="w-full border p-2 rounded"
                   {...register("senderName")}
                 />
+                <input
+                  type="email"
+                  placeholder="Sender email"
+                  defaultValue={users?.email}
+                  required
+                  className="w-full border p-2 rounded"
+                  {...register("senderEmail")}
+                />
+
                 <input
                   type="text"
                   placeholder="Address"
@@ -222,6 +237,13 @@ const ParcelSend = () => {
                   required
                   className="w-full border p-2 rounded"
                   {...register("reciverName")}
+                />
+                <input
+                  type="email"
+                  placeholder="Receiver Email"
+                  required
+                  className="w-full border p-2 rounded"
+                  {...register("reciverEmail")}
                 />
                 <input
                   type="text"

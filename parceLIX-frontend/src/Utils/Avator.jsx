@@ -2,18 +2,18 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Hooks/useContext/FormContext/AuthContext";
 import { toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
+import { Link } from "react-router";
 const Avator = () => {
-  const { users,signout} = useContext(AuthContext);
+  const { users, signout } = useContext(AuthContext);
   const { displayName, email, photoURL } = users;
-  const handelclick= async()=>{
+  const handelclick = async () => {
     try {
-       await signout();
-       toast.success("login out successful!")
-      
-     } catch (error) {
-       toast.error(error.message)
-     }
-  }
+      await signout();
+      toast.success("login out successful!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <div className="dropdown relative">
       <div
@@ -21,7 +21,11 @@ const Avator = () => {
         role="button"
         className="w-12 h-12 rounded-full  flex items-center justify-center cursor-pointer"
       >
-        <img src={users?.photoURL} alt="user image" className="w-full h-full object-cover rounded-full"/>
+        <img
+          src={users?.photoURL}
+          alt="user image"
+          className="w-full h-full object-cover rounded-full"
+        />
       </div>
       <div tabIndex="-1" className="dropdown-content menu">
         <div className="absolute right-0 top-0 z-100 bg-white shadow-lg rounded-md text-center">
@@ -31,14 +35,26 @@ const Avator = () => {
               role="button"
               className="w-12 h-12 m-auto rounded-full border border-black/10  flex items-center justify-center"
             >
-              <img src={photoURL} className="w-full h-full rounded-full object-cover" alt="user image" />
+              <img
+                src={photoURL}
+                className="w-full h-full rounded-full object-cover"
+                alt="user image"
+              />
             </div>
             <strong className="capitalize text-[16px]">{displayName}</strong>
             <div>{email}</div>
           </div>
 
-          <div className="mx-4 pb-3">
-             <button onClick={handelclick} className="background-color cursor-pointer text-white font-bold rounded-md py-2 w-full ">Sign Out</button>
+          <div className="mx-4 pb-3 space-y-5">
+            <button
+              onClick={handelclick}
+              className="background-color cursor-pointer text-white font-bold rounded-md py-2 w-full "
+            >
+              Sign Out
+            </button>
+            <Link to={"/deashbord"} className="background-color cursor-pointer text-white font-bold rounded-md py-2 px-19 ">
+              Deahbord
+            </Link>
           </div>
         </div>
       </div>
