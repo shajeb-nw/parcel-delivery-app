@@ -8,9 +8,9 @@ const Deashbord = () => {
     return (
         <div className='w-full min-h-screen'>
            <DeashNav></DeashNav>
-           <div className='flex '>
+           <div className='flex min-h-screen'>
               <div className='min-h-screen'><SidebarNav></SidebarNav></div>
-              <div><Outlet></Outlet></div>
+              <div className='mx-auto py-5'><Outlet></Outlet></div>
            </div>
            <Footer></Footer>
         </div>

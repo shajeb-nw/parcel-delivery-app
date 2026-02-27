@@ -9,6 +9,9 @@ import Converage from "../Pages/Coverage/Converage";
 import Deashbord from "../Layout/Deashbord";
 import PageDeashbord from "../Pages/Deashbord/PageDeashbord/PageDeashbord";
 import MyParcel from "../Pages/MyParcel/MyParcel";
+import Payment from "../Pages/Deashbord/Payment/Payment";
+import PaySuccess from "../Pages/Deashbord/Payment/PaySuccess";
+import PayHistory from "../Pages/Deashbord/Payment/PayHistory";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +39,9 @@ export const router = createBrowserRouter([
       { path: "/deashbord", element: <PageDeashbord></PageDeashbord> },
       { path: "/deashbord/parcelsend", element: <ParcelSend></ParcelSend> },
       { path: "/deashbord/myparcel", element: <MyParcel></MyParcel> },
+      {path:"/deashbord/payment/:id" ,element:<Payment></Payment>},
+      {path:"/deashbord/payment-success",element:<PaySuccess></PaySuccess>},
+      {path:"/deashbord/payment-history",element:<PayHistory></PayHistory>}
     ],
   },
 ]);

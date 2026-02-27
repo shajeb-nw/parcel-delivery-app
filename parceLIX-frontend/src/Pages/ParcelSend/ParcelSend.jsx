@@ -10,9 +10,8 @@ const ParcelSend = () => {
   const [data, setData] = useState([]);
   // const [myRegion, setMyRegion] = useState([]);
   const axiosInstance = useAxios();
-  const {users}=use(AuthContext)
+  const { users } = use(AuthContext);
 
-  
   const {
     register,
     handleSubmit,
@@ -58,7 +57,7 @@ const ParcelSend = () => {
         cost = isSmaeDistrict ? 110 : 150;
       }
     }
-
+    data.cost = cost;
     Swal.fire({
       title: "Are you agree the cost?",
       text: `you will be charge ${cost} !`,
@@ -185,13 +184,6 @@ const ParcelSend = () => {
 
                 <input
                   type="text"
-                  placeholder="Address"
-                  required
-                  className="w-full border p-2 rounded"
-                  {...register("senderAddress")}
-                />
-                <input
-                  type="text"
                   placeholder="Phone Number"
                   required
                   className="w-full border p-2 rounded"
@@ -223,6 +215,14 @@ const ParcelSend = () => {
                     </option>
                   ))}
                 </select>
+
+                <input
+                  type="text"
+                  placeholder="Sender Address"
+                  required
+                  className="w-full border p-2 rounded"
+                  {...register("senderAddress")}
+                />
               </div>
             </div>
 
@@ -245,13 +245,7 @@ const ParcelSend = () => {
                   className="w-full border p-2 rounded"
                   {...register("reciverEmail")}
                 />
-                <input
-                  type="text"
-                  placeholder="Receiver Address"
-                  required
-                  className="w-full border p-2 rounded"
-                  {...register("reciverAddress")}
-                />
+               
                 <input
                   type="text"
                   placeholder="Receiver Phone"
@@ -285,6 +279,14 @@ const ParcelSend = () => {
                     </option>
                   ))}
                 </select>
+
+                 <input
+                  type="text"
+                  placeholder="Receiver Address"
+                  required
+                  className="w-full border p-2 rounded"
+                  {...register("reciverAddress")}
+                />
               </div>
             </div>
           </div>

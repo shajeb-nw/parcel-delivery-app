@@ -1,13 +1,13 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import React, { useState } from "react";
-import { Boxes, CarFront, Group, LogIn, LogOut, Truck } from "lucide-react";
+import { Boxes, CarFront, Group, HandCoins, LogIn, LogOut, Truck } from "lucide-react";
 import { NavLink } from "react-router";
 
 const SidebarNav = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex bg-white h-full">
       <Sidebar collapsed={collapsed}>
         {/* <main c> */}
         <div className="flex justify-end mr-5 mt-5">
@@ -44,6 +44,13 @@ const SidebarNav = () => {
               component={<NavLink to="/deashbord/myparcel" />}
             >
               My Parcel
+            </MenuItem>
+
+            <MenuItem
+              icon={<HandCoins />}
+              component={<NavLink to="/deashbord/payment-history" />}
+            >
+              Payment History
             </MenuItem>
 
             <MenuItem
